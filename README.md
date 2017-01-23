@@ -1,5 +1,8 @@
 # Exchange-Rate-Fluctuations
 
+Analysis of the seasonality and trends of the US Dollar, Euro, and Turkish Lira over the last 3 years, and evaluation of the ideal time to invest the Dollar in the European and Turkish markets to achieve maximum ROI
+
+
 #Data
 Loading data & exploration
 The first thing that we do is analyse the time series data by reading it into R, and plotting the data over time.  
