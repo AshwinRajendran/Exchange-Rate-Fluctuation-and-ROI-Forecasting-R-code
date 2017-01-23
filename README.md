@@ -3,7 +3,7 @@
 Analysis of the seasonality and trends of the US Dollar, Euro, and Turkish Lira over the last 3 years, and evaluation of the ideal time to invest the Dollar in the European and Turkish markets to achieve maximum ROI
 
 
-#Data
+###Data
 Loading data & exploration
 The first thing that we do is analyse the time series data by reading it into R, and plotting the data over time.  
 ```{r}
@@ -21,7 +21,7 @@ View(exch)
 
 The data set has 37 monthly observations of Exchange Rates of the Eur to the Dollar andd the Lira to the Dollar.
 
-# Time Series Objects
+### Time Series Objects
 We then store both the exchage rates in two time series objects in R. To store the data in a time series object, we use the `ts()` function in R.  
 
 ```{r}
@@ -31,7 +31,7 @@ ts.tur.usd<-ts(exch$TUR.to.USD.Rate, start=c(2013,11), frequency = 12)
 ts.tur.usd
 ```
 
-# Time Series Plot
+### Time Series Plot
 We then plot the exchange prices of Euro and Lira from 2013 to 2016.
 
 ```{r}
@@ -39,7 +39,7 @@ plot.ts(ts.eur.usd, ylab= "Exchange Rates of Eur to USD")
 plot.ts(ts.tur.usd, ylab= "Exchange Rates of Tur to USD")
 ```
 
-# Consolidated Graphical representation of Euro to USD and Lira to USD 
+### Consolidated Graphical representation of Euro to USD and Lira to USD 
 
 We compare the graphical trends of both the cuurrencies againt the Dollar in a consolidted graph.
 
@@ -59,7 +59,8 @@ mtext("Eur to USD vs Turkish Lira to USD",  line=3)
 
 ```
 
-#Decomposing, Holt Smoothening and forcasting for Euro
+###Decomposing, Holt Smoothening and forcasting for Euro
+
 To estimate the trend, seasonal and irregular components of Euro over the given period, we decompose the time series obtained.We then go onto forecast rates for 2017 `(h=12)` which returns values within confidence levels of 80% and 95% respectively for the exchange rate forecasts of the Euro to the Dollar.
 
 ```{r}
@@ -79,7 +80,8 @@ ts.eur.forecasts
 plot.forecast(ts.eur.forecasts, ylab="Exchange rates of Eur to USD", xlab="Year")
 ```
 
-#Decomposing, Holt Smoothening and forcasting for Lira
+###Decomposing, Holt Smoothening and forcasting for Lira
+
 To estimate the trend, seasonal and irregular components of Lira over the given period, we decompose the time series obtained. We then go onto forecast rates for 2017 `(h=12)` which returns values within confidence levels of 80% and 95% respectively for the exchange rate forecasts of the Lira to the Dollar.
 
 ```{r}
@@ -100,7 +102,7 @@ plot.forecast(ts.tur.forecasts, ylab="Exchange rates of TurKish Lira to USD", xl
 ```
 
 
-#Forecast for Eur to USD exchange rates using Arima Model
+###Forecast for Eur to USD exchange rates using Arima Model
 
 We use the Arima model to further consolidate our Forecast Models achieved as above. We use the `auto.arima` function to predict the (p,d,q) variables and use the returned values for an optimum forecast model.
 
@@ -183,7 +185,7 @@ The plot shows that the distribution of forecast errors is roughly centred on ze
 
 The Ljung-Box test showed that there is little evidence of non-zero autocorrelations in the in-sample forecast errors, and the distribution of forecast errors seems to be normally distributed with mean zero. This suggests that the simple exponential smoothing method provides an adequate predictive model for the exchange rates, which probably cannot be improved upon. Furthermore, the assumptions that the 80% and 95% predictions intervals were based upon (that there are no autocorrelations in the forecast errors, and the forecast errors are normally distributed with mean zero and constant variance) are probably valid.
 
-#Forecast for Turkish Lira to USD exchange rates using Arima Model
+###Forecast for Turkish Lira to USD exchange rates using Arima Model
 
 We carry out the same procedure to achieve forecast values using the Arima model and check for forecast errors.
 
@@ -235,7 +237,7 @@ mean(tur.arima.forecasts$residuals)
 
 
 
-Interpretation:
+### Conclusion:
 
 1. Seasonality and trends
 Euro to USD:
