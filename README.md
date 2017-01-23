@@ -36,8 +36,13 @@ We then plot the exchange prices of Euro and Lira from 2013 to 2016.
 
 ```{r}
 plot.ts(ts.eur.usd, ylab= "Exchange Rates of Eur to USD")
+```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/1.PNG)
+
+```{r}
 plot.ts(ts.tur.usd, ylab= "Exchange Rates of Tur to USD")
 ```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/2.PNG)
 
 ### Consolidated Graphical representation of Euro to USD and Lira to USD 
 
@@ -58,6 +63,7 @@ axis(1, xlim=c(2013, 2016))
 mtext("Eur to USD vs Turkish Lira to USD",  line=3)
 
 ```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/3.PNG)
 
 ###Decomposing, Holt Smoothening and forcasting for Euro
 
@@ -67,18 +73,29 @@ To estimate the trend, seasonal and irregular components of Euro over the given 
 library(forecast)
 ts.eur.usd.d <- decompose(ts.eur.usd)
 plot(ts.eur.usd.d)
+```
 
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/4.PNG)
+
+```{r}
 ts.eur.holt <- HoltWinters(ts.eur.usd, gamma=FALSE)
 plot(ts.eur.holt, ylab="Exchange rates of Eur to USD", xlab="Year")
+```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/5.PNG)
 
+```{r}
 ts.eur.forecasts <- forecast.HoltWinters(ts.eur.holt, h=12)  
 plot.forecast(ts.eur.forecasts, ylab="Exchange rates of Eur to USD", xlab="Year")
+```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/6.PNG)
 
+```{r}
 ts.eur.holt <- HoltWinters(ts.eur.usd, gamma=TRUE)
 ts.eur.forecasts <- forecast.HoltWinters(ts.eur.holt, h=12)
 ts.eur.forecasts
 plot.forecast(ts.eur.forecasts, ylab="Exchange rates of Eur to USD", xlab="Year")
 ```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/7.PNG)
 
 ###Decomposing, Holt Smoothening and forcasting for Lira
 
@@ -88,19 +105,28 @@ To estimate the trend, seasonal and irregular components of Lira over the given 
 
 ts.tur.usd.d <- decompose(ts.tur.usd)
 plot(ts.tur.usd.d)
+```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/8.PNG)
 
+```{r}
 ts.tur.holt <- HoltWinters(ts.tur.usd, gamma=FALSE)
 plot(ts.tur.holt, ylab="Exchange rates of TurKish Lira to USD", xlab="Year")
+```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/9.PNG)
 
+```{r}
 ts.tur.forecasts <- forecast.HoltWinters(ts.tur.holt, h=12)  
 plot.forecast(ts.tur.forecasts, ylab="Exchange rates of TurKish Lira to USD", xlab="Year")
+```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/10.PNG)
 
+```{r}
 ts.tur.holt <- HoltWinters(ts.tur.usd, gamma=TRUE)
 ts.tur.forecasts <- forecast.HoltWinters(ts.tur.holt, h=12)
 ts.tur.forecasts
 plot.forecast(ts.tur.forecasts, ylab="Exchange rates of TurKish Lira to USD", xlab="Year")
 ```
-
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/11.PNG)
 
 ###Forecast for Eur to USD exchange rates using Arima Model
 
@@ -113,7 +139,7 @@ eur.arima.forecasts <- forecast.Arima(eur.arima, h=12)
 eur.arima.forecasts
 plot(eur.arima.forecasts)
 ```
-
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/12.PNG)
 
 The ?forecast errors? are calculated as the observed values minus predicted values, for each time point. We can only calculate the forecast errors for the time period covered by our original time series, which is 2013 to 2016 for the exchange rate data. As mentioned above, one measure of the accuracy of the predictive model is the sum-of-squared-errors (SSE) for the in-sample forecast errors.
 
@@ -126,12 +152,14 @@ For example, to calculate a correlogram of the forecast errors for the exchange 
 ```{r}
 acf(eur.arima.forecasts$residuals, lag.max=20)
 ```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/13.PNG)
 
 We can see from the correlogram that the autocorrelation at lag 13 is just touching the significance bounds. To test whether there is significant evidence for non-zero correlations at lags 1-20, we can carry out a Ljung-Box test. This can be done in R using the `Box.test()` function. The maximum lag that we want to look at is specified using the ?lag? parameter in the `Box.test()` function. For example, to test whether there are non-zero autocorrelations at lags 1-20, for the in-sample forecast errors for exchange rate data, we type:
 
 ```{r}
 Box.test(eur.arima.forecasts$residuals, lag=20, type="Ljung-Box")
 ```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/14.PNG)
 
 Here the Ljung-Box test statistic is 21.9, and the p-value is 0.3, so there is little evidence of non-zero autocorrelations in the in-sample forecast errors at lags 1-20.
 
@@ -140,6 +168,7 @@ To be sure that the predictive model cannot be improved upon, it is also a good 
 ```{r}
 plot.ts(eur.arima.forecasts$residuals)            
 ```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/15.PNG)
 
 The plot shows that the in-sample forecast errors do not seem to have a constant variance over time, although the size of the fluctuations in the start of the time series may be slightly less than that at later dates.
 
@@ -149,6 +178,7 @@ We therefore difference the given forecast once to obtain constant variance over
 eur.usd.diff <- diff(eur.arima.forecasts$residuals, differences = 1)
 plot.ts(eur.usd.diff)
 ```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/16.PNG)
 
 To check whether the forecast errors are normally distributed with mean zero, we can plot a histogram of the forecast errors, with an overlaid normal curve that has mean zero and the same standard deviation as the distribution of forecast errors. To do this, we can define an R function ?plotForecastErrors()?, below:
 
@@ -180,6 +210,7 @@ PlotForecastErrors <- function(forecasterrors)
 PlotForecastErrors(eur.arima.forecasts$residuals)
 mean(eur.arima.forecasts$residuals)
 ```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/17.PNG)
 
 The plot shows that the distribution of forecast errors is roughly centred on zero (supported by the `mean` function), and is more or less normally distributed and so it is plausible that the forecast errors are normally distributed with mean zero.
 
@@ -196,18 +227,27 @@ tur.arima.forecasts <- forecast.Arima(tur.arima, h=12)
 tur.arima.forecasts
 plot(tur.arima.forecasts)
 ```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/18.PNG)
 
 ```{r}
-
 acf(tur.arima.forecasts$residuals, lag.max=20)
+```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/19.PNG)
 
+```{r}
 Box.test(tur.arima.forecasts$residuals, lag=20, type="Ljung-Box")
 
 plot.ts(tur.arima.forecasts$residuals)            
+```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/20.PNG)
 
+```{r}
 tur.usd.diff <- diff(tur.arima.forecasts$residuals, differences = 1)
 plot.ts(tur.usd.diff)
+```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/21.PNG)
 
+```{r}
 PlotForecastErrors <- function(forecasterrors)
 {
   mybinsize <- IQR(forecasterrors)/4
@@ -232,10 +272,12 @@ PlotForecastErrors <- function(forecasterrors)
 }
 
 PlotForecastErrors(tur.arima.forecasts$residuals)
+```
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/22.PNG)
+
+```{r}
 mean(tur.arima.forecasts$residuals)
 ```
-
-
 
 ### Conclusion:
 
