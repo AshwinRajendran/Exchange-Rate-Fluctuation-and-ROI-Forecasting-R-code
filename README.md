@@ -118,7 +118,7 @@ plot(ts.tur.holt, ylab="Exchange rates of TurKish Lira to USD", xlab="Year")
 ts.tur.forecasts <- forecast.HoltWinters(ts.tur.holt, h=12)  
 plot.forecast(ts.tur.forecasts, ylab="Exchange rates of TurKish Lira to USD", xlab="Year")
 ```
-!!!!
+![](https://github.com/ushnik/Exchange-Rate-Fluctuations/blob/master/Exchange%20Rate_files/21.PNG)
 
 ```{r}
 ts.tur.holt <- HoltWinters(ts.tur.usd, gamma=TRUE)
